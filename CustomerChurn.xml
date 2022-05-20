@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<WorkflowProcess Version="12.2.0.0.1" DBVersion="19.0.0.0.0" Schema="" xmlns="http://xmlns.oracle.com/odmr11">
+    <Nodes>
+        <DataSource Id="10001" Name="CUSTOMER_CHURN_HISTORY" Status="Complete">
+            <Icon XCOORD="137" YCOORD="94"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10001" as (select "CUSTOMER_CHURN_HISTORY"."HASCRCARD", 
+"CUSTOMER_CHURN_HISTORY"."NUMOFPRODUCTS", 
+"CUSTOMER_CHURN_HISTORY"."CUSTOMERID", 
+"CUSTOMER_CHURN_HISTORY"."TENURE", 
+"CUSTOMER_CHURN_HISTORY"."EXITED", 
+"CUSTOMER_CHURN_HISTORY"."GENDER", 
+"CUSTOMER_CHURN_HISTORY"."CREDITSCORE", 
+"CUSTOMER_CHURN_HISTORY"."GEOGRAPHY", 
+"CUSTOMER_CHURN_HISTORY"."ISACTIVEMEMBER", 
+"CUSTOMER_CHURN_HISTORY"."ESTIMATEDSALARY", 
+"CUSTOMER_CHURN_HISTORY"."AGE", 
+"CUSTOMER_CHURN_HISTORY"."BALANCE" 
+from "DMUSER"."CUSTOMER_CHURN_HISTORY"  )</SQLExpression>
+            <Attributes>
+                <Attribute Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="TENURE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="AGE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+            </Attributes>
+            <SourceTable Schema="" Name="CUSTOMER_CHURN_HISTORY" Synonym="false"/>
+            <JSONColumns/>
+            <DataGuideSettings Generate="true" UseFullData="false" UseFullDoc="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <NumberOfValues>10000</NumberOfValues>
+            </DataGuideSettings>
+        </DataSource>
+        <DataSource Id="10015" Name="CUSTOMER_CHURN_CURRENT" Status="Complete">
+            <Icon XCOORD="639" YCOORD="-1"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10015" as (select "CUSTOMER_CHURN_CURRENT"."AGE", 
+"CUSTOMER_CHURN_CURRENT"."BALANCE", 
+"CUSTOMER_CHURN_CURRENT"."CREDITSCORE", 
+"CUSTOMER_CHURN_CURRENT"."CUSTOMERID", 
+"CUSTOMER_CHURN_CURRENT"."ESTIMATEDSALARY", 
+"CUSTOMER_CHURN_CURRENT"."GENDER", 
+"CUSTOMER_CHURN_CURRENT"."GEOGRAPHY", 
+"CUSTOMER_CHURN_CURRENT"."HASCRCARD", 
+"CUSTOMER_CHURN_CURRENT"."ISACTIVEMEMBER", 
+"CUSTOMER_CHURN_CURRENT"."NUMOFPRODUCTS", 
+"CUSTOMER_CHURN_CURRENT"."TENURE" 
+from "DMUSER"."CUSTOMER_CHURN_CURRENT"  )</SQLExpression>
+            <Attributes>
+                <Attribute Name="AGE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="TENURE" DataType="NUMBER" Status="Valid"/>
+            </Attributes>
+            <SourceTable Schema="" Name="CUSTOMER_CHURN_CURRENT" Synonym="false"/>
+            <JSONColumns/>
+            <DataGuideSettings Generate="true" UseFullData="false" UseFullDoc="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <NumberOfValues>10000</NumberOfValues>
+            </DataGuideSettings>
+            <includeAllAvailableAttributes>false</includeAllAvailableAttributes>
+        </DataSource>
+        <CreateTable TableName="CUSTOMER_CHURN_PREDICTION" Table="true" AutoSpec="Yes" Id="10019" Name="CUSTOMER_CHURN_PREDICTION" Status="Complete">
+            <Icon XCOORD="668" YCOORD="244"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10019" AS ( SELECT  "ChurnPrediction" ,
+ "ChurnPredictionProb" ,
+ "CUSTOMERID" ,
+ "AGE" ,
+ "BALANCE" ,
+ "CREDITSCORE" ,
+ "ESTIMATEDSALARY" ,
+ "GENDER" ,
+ "GEOGRAPHY" ,
+ "HASCRCARD" ,
+ "ISACTIVEMEMBER" ,
+ "NUMOFPRODUCTS" ,
+ "TENURE"  FROM "CUSTOMER_CHURN_PREDICTION")</SQLExpression>
+            <DBAttributes>
+                <DBAttribute Key="No" Index="No" Name="ChurnPrediction" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="ChurnPredictionProb" DataType="BINARY_DOUBLE" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                <DBAttribute Key="No" Index="No" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+            </DBAttributes>
+            <JSONColumns/>
+            <CreateTableOptions>
+                <Logging>NOLOGGING</Logging>
+                <TableCompression>ROW STORE COMPRESS</TableCompression>
+            </CreateTableOptions>
+        </CreateTable>
+        <Sample Id="10002" Name="Sample" Status="Complete">
+            <Icon XCOORD="315" YCOORD="99"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10002.1" as (SELECT  COUNT(*) "COUNT" FROM {INPUT_SOURCE}), 
+"N$10002" as (
+SELECT 
+"HASCRCARD"
+, "NUMOFPRODUCTS"
+, "CUSTOMERID"
+, "TENURE"
+, "EXITED"
+, "GENDER"
+, "CREDITSCORE"
+, "GEOGRAPHY"
+, "ISACTIVEMEMBER"
+, "ESTIMATEDSALARY"
+, "AGE"
+, "BALANCE"
+ FROM (SELECT t.*, rownum "ODMR$08_31_33_432990YHJMDHB" FROM {INPUT_SOURCE} t) WHERE "ODMR$08_31_33_432990YHJMDHB" &lt;= (SELECT "COUNT" FROM "N$10002.1") * 75 / 100)</SQLExpression>
+            <SamplingSettings>
+                <PercentOfTotal>75.0</PercentOfTotal>
+                <Method>
+                    <TopN/>
+                </Method>
+            </SamplingSettings>
+        </Sample>
+        <Sample Id="10012" Name="Sample 1" Status="Complete">
+            <Icon XCOORD="228" YCOORD="255"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10012.1" as (SELECT  COUNT(*) "COUNT" FROM {INPUT_SOURCE}), 
+"N$10012" as (
+SELECT 
+"HASCRCARD"
+, "NUMOFPRODUCTS"
+, "CUSTOMERID"
+, "TENURE"
+, "EXITED"
+, "GENDER"
+, "CREDITSCORE"
+, "GEOGRAPHY"
+, "ISACTIVEMEMBER"
+, "ESTIMATEDSALARY"
+, "AGE"
+, "BALANCE"
+ FROM (SELECT t.*, row_number() OVER(ORDER BY ORA_HASH("CUSTOMERID", 4294967295, 12345)) "ODMR$08_32_51_859226FJRTBIC" FROM {INPUT_SOURCE} t) WHERE "ODMR$08_32_51_859226FJRTBIC" &lt;= (SELECT "COUNT" FROM "N$10012.1") * 25 / 100)</SQLExpression>
+            <SamplingSettings>
+                <PercentOfTotal>25.0</PercentOfTotal>
+                <Method>
+                    <Random Seed="12345"/>
+                </Method>
+                <CaseAttribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+            </SamplingSettings>
+        </Sample>
+        <ClassificationBuild MaxNumPartitions="1000" ODMS_SAMPLING="false" Id="10008" Name="Class Build" Status="Complete">
+            <Icon XCOORD="479" YCOORD="106"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <BuildDataSource SourceId="10002"/>
+            <CaseAttributes>
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+            </CaseAttributes>
+            <MiningAttributes AutoSpec="Yes">
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+            </MiningAttributes>
+            <Stoplists>
+                <Stoplist Id="1" Name="Default" Type="Basic" Language="ENGLISH" DBName="">
+                    <StopTokens>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>Mr</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>Mrs</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>Ms</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>a</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>all</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>almost</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>also</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>although</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>an</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>and</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>any</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>are</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>as</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>at</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>be</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>because</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>been</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>both</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>but</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>by</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>can</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>could</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>d</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>did</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>do</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>does</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>either</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>for</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>from</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>had</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>has</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>have</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>having</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>he</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>her</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>here</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>hers</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>him</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>his</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>how</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>however</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>i</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>if</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>in</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>into</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>is</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>it</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>its</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>just</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>ll</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>me</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>might</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>my</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>no</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>non</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>nor</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>not</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>of</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>on</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>one</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>only</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>onto</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>or</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>our</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>ours</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>s</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>shall</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>she</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>should</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>since</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>so</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>some</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>still</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>such</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>t</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>than</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>that</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>the</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>their</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>them</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>then</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>there</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>therefore</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>these</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>they</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>this</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>those</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>though</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>through</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>thus</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>to</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>too</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>until</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>ve</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>very</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>was</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>we</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>were</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>what</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>when</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>where</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>whether</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>which</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>while</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>who</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>whose</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>why</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>will</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>with</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>would</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>yet</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>you</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>your</Item>
+                        </Token>
+                        <Token Type="Word" Language="ENGLISH">
+                            <Item>yours</Item>
+                        </Token>
+                    </StopTokens>
+                </Stoplist>
+            </Stoplists>
+            <TextSettings TransformType="Token" CategoricalCutOffValue="200">
+                <Token>
+                    <Token MaxNumberPerDoc="50" MaxNumberAllDocs="3000" MinNumberAllDocs="1" Frequency="IDF" StoplistId="1" Policy="">
+                        <Lexer Name="" Type="Basic">
+                            <Settings/>
+                        </Lexer>
+                        <Languages>
+                            <Language Name="ENGLISH" Type="SingleByte"/>
+                        </Languages>
+                    </Token>
+                </Token>
+                <Theme Type="Single">
+                    <Token MaxNumberPerDoc="50" MaxNumberAllDocs="3000" Frequency="IDF" StoplistId="1" Policy="">
+                        <Lexer Type="Basic">
+                            <Settings>
+                                <Attribute Name="index_themes" ValueString="YES" Type="String"/>
+                                <Attribute Name="theme_language" ValueString="ENGLISH" Type="String"/>
+                            </Settings>
+                        </Lexer>
+                        <Languages>
+                            <Language Name="ENGLISH" Type="SingleByte"/>
+                        </Languages>
+                    </Token>
+                </Theme>
+                <Synonym>
+                    <Token MaxNumberPerDoc="50" MaxNumberAllDocs="3000" Frequency="IDF" StoplistId="1" Policy="">
+                        <Lexer Name="" Type="Basic">
+                            <Settings/>
+                        </Lexer>
+                        <Languages>
+                            <Language Name="ENGLISH" Type="SingleByte"/>
+                        </Languages>
+                    </Token>
+                </Synonym>
+            </TextSettings>
+            <TextAttributes/>
+            <HeuristicSummaryResult StatisticTable="ODMR$08_31_50_910926SYLSFFC">
+                <Attribute Name="CUSTOMERID">
+                    <Reason Type="INPUT_NONE"/>
+                </Attribute>
+                <Attribute Name="HASCRCARD">
+                    <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                </Attribute>
+                <Attribute Name="ISACTIVEMEMBER">
+                    <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                </Attribute>
+                <Attribute Name="NUMOFPRODUCTS">
+                    <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                </Attribute>
+            </HeuristicSummaryResult>
+            <TestDataSource>
+                <SplitData TestPercent="40.0" DataFormat="Table"/>
+            </TestDataSource>
+            <TargetAttribute Name="EXITED" DataType="NUMBER" Status="Valid"/>
+            <Models>
+                <NaiveBayesModel Id="10004" Name="CLAS_NB_1_3" Status="Complete" CreationDate="2022-05-10T08:31:59" Annotation="" UseForOutput="true">
+                    <InputMiningData DataUsage="AUTO" MiningUsage="AUTO">
+                        <MiningAttributes>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                        </MiningAttributes>
+                        <HeuristicResult StatisticTable="ODMR$08_31_50_910926SYLSFFC">
+                            <Attribute Name="HASCRCARD">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="ISACTIVEMEMBER">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="NUMOFPRODUCTS">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                        </HeuristicResult>
+                    </InputMiningData>
+                    <Performance>
+                        <Balanced/>
+                    </Performance>
+                    <Tuning>
+                        <None/>
+                    </Tuning>
+                    <NaiveBayesAlgo>
+                        <NABS_PAIRWISE_THRESHOLD>0.0</NABS_PAIRWISE_THRESHOLD>
+                        <NABS_SINGLETON_THRESHOLD>0.0</NABS_SINGLETON_THRESHOLD>
+                    </NaiveBayesAlgo>
+                </NaiveBayesModel>
+                <DecisionTreeModel Id="10005" Name="CLAS_DT_1_3" Status="Complete" CreationDate="2022-05-10T08:31:59" Annotation="" UseForOutput="true">
+                    <InputMiningData DataUsage="AUTO" MiningUsage="AUTO">
+                        <MiningAttributes>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                        </MiningAttributes>
+                        <HeuristicResult StatisticTable="ODMR$08_31_50_910926SYLSFFC">
+                            <Attribute Name="HASCRCARD">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="ISACTIVEMEMBER">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="NUMOFPRODUCTS">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                        </HeuristicResult>
+                    </InputMiningData>
+                    <Performance>
+                        <Balanced/>
+                    </Performance>
+                    <Tuning>
+                        <None/>
+                    </Tuning>
+                    <DecisionTreeAlgo>
+                        <TREE_IMPURITY_METRIC>TREE_IMPURITY_GINI</TREE_IMPURITY_METRIC>
+                        <TREE_TERM_MAX_DEPTH>7</TREE_TERM_MAX_DEPTH>
+                        <TREE_TERM_MINPCT_NODE>0.05</TREE_TERM_MINPCT_NODE>
+                        <TREE_TERM_MINPCT_SPLIT>0.1</TREE_TERM_MINPCT_SPLIT>
+                        <TREE_TERM_MINREC_NODE>10</TREE_TERM_MINREC_NODE>
+                        <TREE_TERM_MINREC_SPLIT>20</TREE_TERM_MINREC_SPLIT>
+                    </DecisionTreeAlgo>
+                </DecisionTreeModel>
+                <CSupportVectorMachineModel Id="10006" Name="CLAS_SVM_1_3" Status="Complete" CreationDate="2022-05-10T08:31:59" Annotation="" UseForOutput="true">
+                    <InputMiningData DataUsage="AUTO" MiningUsage="AUTO">
+                        <MiningAttributes>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                        </MiningAttributes>
+                        <HeuristicResult StatisticTable="ODMR$08_31_50_910926SYLSFFC">
+                            <Attribute Name="HASCRCARD">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="ISACTIVEMEMBER">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="NUMOFPRODUCTS">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                        </HeuristicResult>
+                    </InputMiningData>
+                    <Performance>
+                        <Balanced/>
+                    </Performance>
+                    <Tuning>
+                        <None/>
+                    </Tuning>
+                    <CSupportVectorMachineAlgo>
+                        <SVMS_ACTIVE_LEARNING>SVMS_AL_ENABLE</SVMS_ACTIVE_LEARNING>
+                        <SVMS_CONV_TOLERANCE>0.001</SVMS_CONV_TOLERANCE>
+                    </CSupportVectorMachineAlgo>
+                </CSupportVectorMachineModel>
+                <CGeneralizedLinearModel Id="10007" Name="CLAS_GLM_1_3" Status="Complete" CreationDate="2022-05-10T08:32:01" Annotation="" UseForOutput="true">
+                    <InputMiningData DataUsage="AUTO" MiningUsage="AUTO">
+                        <MiningAttributes>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="No" Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="TENURE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="EXITED" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Categorical" Input="Yes" Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="AGE" DataType="NUMBER" Status="Valid"/>
+                            <MiningAttribute AutoPrep="Yes" MiningType="Numerical" Input="Yes" Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                        </MiningAttributes>
+                        <HeuristicResult StatisticTable="ODMR$08_31_50_910926SYLSFFC">
+                            <Attribute Name="HASCRCARD">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="ISACTIVEMEMBER">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                            <Attribute Name="NUMOFPRODUCTS">
+                                <Reason Type="NUM_TO_CAT_MINING_TYPE"/>
+                            </Attribute>
+                        </HeuristicResult>
+                    </InputMiningData>
+                    <Performance>
+                        <Balanced/>
+                    </Performance>
+                    <Tuning>
+                        <None/>
+                    </Tuning>
+                    <CGeneralizedLinearAlgo>
+                        <GLMS_CONF_LEVEL>0.95</GLMS_CONF_LEVEL>
+                        <GLMS_FTR_SELECTION>GLMS_FTR_SELECTION_DISABLE</GLMS_FTR_SELECTION>
+                        <GLMS_SPARSE_SOLVER>GLMS_SPARSE_SOLVER_DISABLE</GLMS_SPARSE_SOLVER>
+                    </CGeneralizedLinearAlgo>
+                </CGeneralizedLinearModel>
+            </Models>
+            <TestSettings>
+                <TopNTargets Value="5"/>
+            </TestSettings>
+            <Results genAccuracyMetrics="true" genConfusionMatrix="true" genROC="true" genLift="true" genTuning="false">
+                <ClassificationResult ModelId="10004" Status="Complete" Name="CLAS_NB_1_3" CreationDate="2022-05-10T08:32:21">
+                    <TestMetrics Name="ODMR$08_32_11_325341PFGAKCA" CreationDate="2022-05-10T08:32:11"/>
+                    <ConfusionMatrix Name="ODMR$08_32_07_298396HKTJLVL" CreationDate="2022-05-10T08:32:11"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_32_11_443029XEQFYLL" CreationDate="2022-05-10T08:32:14"/>
+                        <Lift TargetValue="1" Name="ODMR$08_32_14_978493XNZGHDP" CreationDate="2022-05-10T08:32:16"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_32_16_915052LWXZFFS" CreationDate="2022-05-10T08:32:19"/>
+                        <ROC TargetValue="1" Name="ODMR$08_32_19_641665MWKVQAF" CreationDate="2022-05-10T08:32:21"/>
+                        <AreaUnderCurve Area="0.8487059473991394" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8490338921546936" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10007" Status="Complete" Name="CLAS_GLM_1_3" CreationDate="2022-05-10T08:32:21">
+                    <TestMetrics Name="ODMR$08_32_11_392844FWPAPAJ" CreationDate="2022-05-10T08:32:11"/>
+                    <ConfusionMatrix Name="ODMR$08_32_07_294805YYYWXUD" CreationDate="2022-05-10T08:32:11"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_32_11_517960SMMIZDI" CreationDate="2022-05-10T08:32:14"/>
+                        <Lift TargetValue="1" Name="ODMR$08_32_14_955870GFOMWAX" CreationDate="2022-05-10T08:32:16"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_32_16_866443EJAXZXJ" CreationDate="2022-05-10T08:32:19"/>
+                        <ROC TargetValue="1" Name="ODMR$08_32_19_633076FAEBXMC" CreationDate="2022-05-10T08:32:21"/>
+                        <AreaUnderCurve Area="0.8331806063652039" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8338329195976257" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10006" Status="Complete" Name="CLAS_SVM_1_3" CreationDate="2022-05-10T08:32:21">
+                    <TestMetrics Name="ODMR$08_32_11_393087GBVDRZB" CreationDate="2022-05-10T08:32:11"/>
+                    <ConfusionMatrix Name="ODMR$08_32_07_224385XLWRNZL" CreationDate="2022-05-10T08:32:11"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_32_11_516697WSEGIHS" CreationDate="2022-05-10T08:32:14"/>
+                        <Lift TargetValue="1" Name="ODMR$08_32_14_948377KGXGYWL" CreationDate="2022-05-10T08:32:16"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_32_16_884488SEIOPPP" CreationDate="2022-05-10T08:32:19"/>
+                        <ROC TargetValue="1" Name="ODMR$08_32_19_664440QZNDDOU" CreationDate="2022-05-10T08:32:21"/>
+                        <AreaUnderCurve Area="0.831441342830658" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8321094512939453" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10005" Status="Complete" Name="CLAS_DT_1_3" CreationDate="2022-05-10T08:32:23">
+                    <TestMetrics Name="ODMR$08_32_11_372138QUBKAVU" CreationDate="2022-05-10T08:32:11"/>
+                    <ConfusionMatrix Name="ODMR$08_32_07_309922ESAYRSR" CreationDate="2022-05-10T08:32:11"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_32_13_224764KCIIKKY" CreationDate="2022-05-10T08:32:16"/>
+                        <Lift TargetValue="1" Name="ODMR$08_32_16_020857JMYEKHY" CreationDate="2022-05-10T08:32:18"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_32_18_509955HHHMOLG" CreationDate="2022-05-10T08:32:20"/>
+                        <ROC TargetValue="1" Name="ODMR$08_32_20_839436GQUCRTH" CreationDate="2022-05-10T08:32:23"/>
+                        <AreaUnderCurve Area="0.839877724647522" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.839877724647522" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+            </Results>
+        </ClassificationBuild>
+        <Apply ColumnOutputOrder="SupplementalColumns" OrderPartitions="Yes" Id="10016" Name="Apply" Status="Complete">
+            <Icon XCOORD="668" YCOORD="127"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <CacheSettings UseFullData="false" GenerateCache="false">
+                <NumberOfRows>2000</NumberOfRows>
+                <Method>
+                    <TopN/>
+                </Method>
+            </CacheSettings>
+            <SQLExpression>"N$10016" as (SELECT 
+"CUSTOMERID", 
+"AGE", 
+"BALANCE", 
+"CREDITSCORE", 
+"ESTIMATEDSALARY", 
+"GENDER", 
+"GEOGRAPHY", 
+"HASCRCARD", 
+"ISACTIVEMEMBER", 
+"NUMOFPRODUCTS", 
+"TENURE", 
+PREDICTION("CLAS_NB_1_3" USING *) "ChurnPrediction", 
+PREDICTION_PROBABILITY("CLAS_NB_1_3" USING *) "ChurnPredictionProb"
+FROM {INPUT_SOURCE} )</SQLExpression>
+            <SupplementalAttributes AutoSpec="No">
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="AGE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="BALANCE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="CREDITSCORE" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="ESTIMATEDSALARY" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="GENDER" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="GEOGRAPHY" DataType="VARCHAR2" Status="Valid"/>
+                <Attribute Name="HASCRCARD" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="ISACTIVEMEMBER" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="NUMOFPRODUCTS" DataType="NUMBER" Status="Valid"/>
+                <Attribute Name="TENURE" DataType="NUMBER" Status="Valid"/>
+            </SupplementalAttributes>
+            <OutputColumns AutoSpec="No">
+                <OutputColumn>
+                    <Model IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_NB_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="NAIVE_BAYES" Status="Valid" UseForOutput="true" ModelId="10004"/>
+                    <Prediction>
+                        <CostOption>
+                            <None/>
+                        </CostOption>
+                        <Column Name="ChurnPrediction"/>
+                    </Prediction>
+                </OutputColumn>
+                <OutputColumn>
+                    <Model IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_NB_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="NAIVE_BAYES" Status="Valid" UseForOutput="true" ModelId="10004"/>
+                    <PredictionProbability>
+                        <Column Name="ChurnPredictionProb"/>
+                    </PredictionProbability>
+                </OutputColumn>
+            </OutputColumns>
+            <CaseAttributes>
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+            </CaseAttributes>
+        </Apply>
+        <Test Id="10010" Name="Test" Status="Complete">
+            <Icon XCOORD="485" YCOORD="240"></Icon>
+            <Messages/>
+            <Parallelism Enable="false">
+                <SystemDetermined/>
+            </Parallelism>
+            <TargetAttribute Name="EXITED" DataType="NUMBER" Status="Valid"/>
+            <TestSettings>
+                <TopNTargets Value="100"/>
+            </TestSettings>
+            <CaseAttributes>
+                <Attribute Name="CUSTOMERID" DataType="NUMBER" Status="Valid"/>
+            </CaseAttributes>
+            <TestModels MiningFunction="CLASSIFICATION" AutoSpec="Yes" Archive="No">
+                <Model TestStatus="Complete" IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_GLM_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="GENERALIZED_LINEAR_MODEL" Status="Valid" UseForOutput="true" ModelId="10007"/>
+                <Model TestStatus="Complete" IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_SVM_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="SUPPORT_VECTOR_MACHINES" Status="Valid" UseForOutput="true" ModelId="10006"/>
+                <Model TestStatus="Complete" IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_DT_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="DECISION_TREE" Status="Valid" UseForOutput="true" ModelId="10005"/>
+                <Model TestStatus="Complete" IsModelBuilt="true" NodeId="10008" Schema="" Name="CLAS_NB_1_3" MiningFunction="CLASSIFICATION" MiningAlgorithm="NAIVE_BAYES" Status="Valid" UseForOutput="true" ModelId="10004"/>
+            </TestModels>
+            <Results>
+                <ClassificationResult ModelId="10007" Status="Complete" Name="CLAS_GLM_1_3" CreationDate="2022-05-10T08:33:42">
+                    <TestMetrics Name="ODMR$08_33_05_359708GAJWUPD" CreationDate="2022-05-10T08:33:05"/>
+                    <ConfusionMatrix Name="ODMR$08_33_03_744269EHXQXPC" CreationDate="2022-05-10T08:33:05"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_33_05_426887CYXTUFC" CreationDate="2022-05-10T08:33:06"/>
+                        <Lift TargetValue="1" Name="ODMR$08_33_06_885436QIJHAQA" CreationDate="2022-05-10T08:33:08"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_33_08_349571PXZTNKM" CreationDate="2022-05-10T08:33:09"/>
+                        <ROC TargetValue="1" Name="ODMR$08_33_09_748545WBDPQEE" CreationDate="2022-05-10T08:33:11"/>
+                        <AreaUnderCurve Area="0.8284881114959717" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8295159339904785" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10006" Status="Complete" Name="CLAS_SVM_1_3" CreationDate="2022-05-10T08:33:43">
+                    <TestMetrics Name="ODMR$08_33_12_930006HORNMCZ" CreationDate="2022-05-10T08:33:12"/>
+                    <ConfusionMatrix Name="ODMR$08_33_11_487354HYCANVL" CreationDate="2022-05-10T08:33:12"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_33_13_011332NTIQQGS" CreationDate="2022-05-10T08:33:14"/>
+                        <Lift TargetValue="1" Name="ODMR$08_33_14_346228OBYXQKE" CreationDate="2022-05-10T08:33:15"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_33_15_902259YKEHPCQ" CreationDate="2022-05-10T08:33:19"/>
+                        <ROC TargetValue="1" Name="ODMR$08_33_19_611571LVEVYDJ" CreationDate="2022-05-10T08:33:21"/>
+                        <AreaUnderCurve Area="0.8288478851318359" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8298658728599548" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10005" Status="Complete" Name="CLAS_DT_1_3" CreationDate="2022-05-10T08:33:43">
+                    <TestMetrics Name="ODMR$08_33_23_185841ONFLFPP" CreationDate="2022-05-10T08:33:23"/>
+                    <ConfusionMatrix Name="ODMR$08_33_21_655976APGECVE" CreationDate="2022-05-10T08:33:23"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_33_23_276360DUEYXDI" CreationDate="2022-05-10T08:33:25"/>
+                        <Lift TargetValue="1" Name="ODMR$08_33_25_742962RMAEMIT" CreationDate="2022-05-10T08:33:28"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_33_28_155686ZKRRAKC" CreationDate="2022-05-10T08:33:32"/>
+                        <ROC TargetValue="1" Name="ODMR$08_33_32_834496MZMDQVX" CreationDate="2022-05-10T08:33:34"/>
+                        <AreaUnderCurve Area="0.8411701321601868" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8411701321601868" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+                <ClassificationResult ModelId="10004" Status="Complete" Name="CLAS_NB_1_3" CreationDate="2022-05-10T08:33:43">
+                    <TestMetrics Name="ODMR$08_33_36_381189BOXCGWF" CreationDate="2022-05-10T08:33:36"/>
+                    <ConfusionMatrix Name="ODMR$08_33_34_993011DSNPZUF" CreationDate="2022-05-10T08:33:36"/>
+                    <Lifts>
+                        <Lift TargetValue="0" Name="ODMR$08_33_36_439711NPORPBG" CreationDate="2022-05-10T08:33:37"/>
+                        <Lift TargetValue="1" Name="ODMR$08_33_37_893098KZVYXTT" CreationDate="2022-05-10T08:33:39"/>
+                    </Lifts>
+                    <ROCs>
+                        <ROC TargetValue="0" Name="ODMR$08_33_39_540723KNRPAGP" CreationDate="2022-05-10T08:33:41"/>
+                        <ROC TargetValue="1" Name="ODMR$08_33_41_017157KLWBZAO" CreationDate="2022-05-10T08:33:42"/>
+                        <AreaUnderCurve Area="0.8379125595092773" TargetValue="0"/>
+                        <AreaUnderCurve Area="0.8382551670074463" TargetValue="1"/>
+                    </ROCs>
+                </ClassificationResult>
+            </Results>
+        </Test>
+    </Nodes>
+    <Links>
+        <Link Id="10003" From="10001" To="10002" Name="Link" Label="From &quot;CUSTOMER_CHURN_HISTORY&quot; to &quot;Sample&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10009" From="10002" To="10008" Name="Link" Label="From &quot;Sample&quot; to &quot;Class Build&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10011" From="10008" To="10010" Name="Link" Label="From &quot;Class Build&quot; to &quot;Test&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10013" From="10001" To="10012" Name="Link" Label="From &quot;CUSTOMER_CHURN_HISTORY&quot; to &quot;Sample 1&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10014" From="10012" To="10010" Name="Link" Label="From &quot;Sample 1&quot; to &quot;Test&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10017" From="10008" To="10016" Name="Link" Label="From &quot;Class Build&quot; to &quot;Apply&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10018" From="10015" To="10016" Name="Link" Label="From &quot;CUSTOMER_CHURN_CURRENT&quot; to &quot;Apply&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+        <Link Id="10020" From="10016" To="10019" Name="Link" Label="From &quot;Apply&quot; to &quot;CUSTOMER_CHURN_PREDICTION&quot;">
+            <ConnectorGraphicsInfo>
+                <Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </ConnectorGraphicsInfo>
+        </Link>
+    </Links>
+</WorkflowProcess>
